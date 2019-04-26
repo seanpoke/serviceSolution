@@ -1,0 +1,10 @@
+分库分表保证数据不迁移及避免热点数据
+
+方案：先按照id范围分组，每个组内再进行hash取模找到具体的数据库
+https://mp.weixin.qq.com/s/QFlUPS8X0errMwpxdBMHvg
+
+
+
+保证数据插入的一致性
+查询：select .... for update  明确主键的情况下，查询保证行锁，即该条数据其他事务提交后才会查询
+插入：version = #{version} + 1 where version =#{version}  乐观锁加版本
